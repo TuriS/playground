@@ -1,0 +1,13 @@
+html {
+    background-color: #787878
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+body > canvas {
+    margin: auto;
+}
