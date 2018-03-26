@@ -23,20 +23,8 @@ let createHash = (password) => {
 let initDatabase = () => {
     return new Promise(async (resolve, reject) => {
         console.log("Initializing Database");
-        
-        let app = {
-            name : "PdfReactor"
-        };
-        let agent = {
-            name : "PdfReactor RIO",
-            application: app,
-            module_name: "PdfReactorImage"
-        };
         let user = {
                 name : "admin"
-        };
-        let cerberus = {
-            name : "cerberus"
         };
         
         let credentials = await createHash("admin");
@@ -118,7 +106,8 @@ module.exports.setPassword = setPassword;
 module.exports.Collections = Collections;
 module.exports.ObjectId = db.ObjectId;
 
-// Collections.agent.findOne().then(async agent=> {
-//     // console.log(await getStats(agent._id, null, "01-01-2018", "02-09-2018"));
-//     console.log(JSON.stringify(await getStats(agent._id, null, 5, -1), null, 2));
-// })
+Collections.user.findOne({name:"admin"}).then( admin => {
+    if(!admin) {
+        initDatabase();
+    }
+});

@@ -11,11 +11,11 @@ router.get('/login', (req, res, next) => {
     res.render("login");
 });
 
-router.post('/login', /*auth.login,*/ (req, res, next) => {
-    res.redirect(req.app.locals.basePath + '/');
+router.post('/login', auth.login, (req, res, next) => {
+    res.redirect('/');
 });
 
-router.get('/logout', /*secured, auth.logout,*/ (req, res, next) => {
+router.get('/logout', secured, auth.logout, (req, res, next) => {
     res.redirect(req.app.locals.basePath + '/');
 });
 

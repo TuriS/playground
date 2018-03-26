@@ -124,6 +124,49 @@ class Player extends GameObject {
         sprite.animations.add('right', [6, 7, 8], 10, true);
         sprite.animations.add('up', [9, 10, 11], 10, true);
     }
+    move_update() { 
+        if(!this.moving){
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                this.move("left");
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && !this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+                    this.move("up");
+                } 
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+                    pthis.move("down");
+                } 
+            } 
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                this.move("right");
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && !this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+                    this.move("up");
+                } 
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !this.game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+                    this.move("down");
+                } 
+            } 
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.UP) && !this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+                this.move("up");
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                    this.move("left");
+                } 
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                    this.move("right");
+                } 
+            } 
+            if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+                this.move("down");
+                if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                    this.move("left");
+                } 
+                if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                    this.move("right");
+                } 
+            } 
+        }
+        if(!this.moving) {
+            this.stop();
+        }
+    }
 
     move(direction) {
         let _this = this;
