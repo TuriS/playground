@@ -1,9 +1,9 @@
 const mongoose = require('mongoose'),
-      fs = require('fs'),
-      path = require('path');
+    fs = require('fs'),
+    path = require('path');
 const Schema = mongoose.Schema,
-      ObjectId = Schema.ObjectId,
-      DB_ADDRESS =  require("../../config.json").dataBaseUrl;
+    ObjectId = Schema.ObjectId,
+    DB_ADDRESS =  require("../../config.json").dataBaseUrl;
 
 mongoose.Promise = global.Promise;
 

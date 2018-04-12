@@ -1,3 +1,4 @@
+/* globals Phaser:true, game: true*/
 const SETTINGS = {
     MOVE_TIME: 10
 };
@@ -5,11 +6,11 @@ const SETTINGS = {
 function setIntervalX(callback, delay, repetitions, final) {
     var x = 0;
     var intervalID = window.setInterval(function () {
-       callback();
-       if (++x === repetitions) {
-           window.clearInterval(intervalID);
-           final();
-       }
+        callback();
+        if (++x === repetitions) {
+            window.clearInterval(intervalID);
+            final();
+        }
     }, delay);
 }
 
@@ -41,7 +42,7 @@ class Creature extends GameObject {
         this.visible = false;
     }
     load() {
-        this.game.load.spritesheet(this.name, this.image, 32, 32, 12)
+        this.game.load.spritesheet(this.name, this.image, 32, 32, 12);
     }
 
     create() {
@@ -65,26 +66,26 @@ class Creature extends GameObject {
 
     move(direction) {
         let _this = this;
-        return (async function(direction) {
+        return (async (direction) => {
             switch (direction) {
-                case "down":
-                    _this.sprite.animations.play('down');
-                    _this.sprite.y += _this.velocity;
-                    break;
-                case "left":
-                    _this.sprite.x -= _this.velocity;
-                    _this.sprite.animations.play('left');
-                    break;
-                case "right":
-                    _this.sprite.x += _this.velocity
-                    _this.sprite.animations.play('right');
-                    break;
-                case "up":
-                    _this.sprite.y -= _this.velocity;
-                    _this.sprite.animations.play('up');
-                    break;
-                default:
-                    break;
+            case "down":
+                _this.sprite.animations.play('down');
+                _this.sprite.y += _this.velocity;
+                break;
+            case "left":
+                _this.sprite.x -= _this.velocity;
+                _this.sprite.animations.play('left');
+                break;
+            case "right":
+                _this.sprite.x += _this.velocity;
+                _this.sprite.animations.play('right');
+                break;
+            case "up":
+                _this.sprite.y -= _this.velocity;
+                _this.sprite.animations.play('up');
+                break;
+            default:
+                break;
             }
         })(direction);
     }
@@ -102,7 +103,7 @@ class Player extends GameObject {
     }
 
     load() {
-        this.game.load.spritesheet(this.name, this.image, 32, 32, 12)
+        this.game.load.spritesheet(this.name, this.image, 32, 32, 12);
     }
 
     create() {
@@ -132,7 +133,7 @@ class Player extends GameObject {
                     this.move("up");
                 } 
                 if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-                    pthis.move("down");
+                    this.move("down");
                 } 
             } 
             if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
@@ -153,12 +154,12 @@ class Player extends GameObject {
                     this.move("right");
                 } 
             } 
-            if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && !game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
                 this.move("down");
-                if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) && !game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
                     this.move("left");
                 } 
-                if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+                if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) && !game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
                     this.move("right");
                 } 
             } 
@@ -172,44 +173,44 @@ class Player extends GameObject {
         let _this = this;
         this.moving = true;
         switch (direction) {
-            case "down":
-                _this.sprite.animations.play('down');
-                setIntervalX(function() {
-                    _this.sprite.y += 1;
-                }, SETTINGS.MOVE_TIME, 32, function(){
-                    _this.moving = false;
-                    _this.stop();
-                });
-                break;
-            case "left":
-                _this.sprite.animations.play('left');
-                setIntervalX(function() {
-                    _this.sprite.x -= 1;
-                }, SETTINGS.MOVE_TIME, 32, function(){
-                    _this.moving = false;
-                    _this.stop();
-                });
-                break;
-            case "right":
-                _this.sprite.animations.play('right');
-                setIntervalX(function() {
-                    _this.sprite.x += 1
-                }, SETTINGS.MOVE_TIME, 32, function(){
-                    _this.moving = false;
-                    _this.stop();
-                });
-                break;
-            case "up":
-                _this.sprite.animations.play('up');
-                setIntervalX(function() {
-                    _this.sprite.y -= 1
-                }, SETTINGS.MOVE_TIME, 32, function(){
-                    _this.moving = false;
-                    _this.stop();
-                });
-                break;
-            default:
-                break;
+        case "down":
+            _this.sprite.animations.play('down');
+            setIntervalX(function() {
+                _this.sprite.y += 1;
+            }, SETTINGS.MOVE_TIME, 32, function(){
+                _this.moving = false;
+                _this.stop();
+            });
+            break;
+        case "left":
+            _this.sprite.animations.play('left');
+            setIntervalX(function() {
+                _this.sprite.x -= 1;
+            }, SETTINGS.MOVE_TIME, 32, function(){
+                _this.moving = false;
+                _this.stop();
+            });
+            break;
+        case "right":
+            _this.sprite.animations.play('right');
+            setIntervalX(function() {
+                _this.sprite.x += 1;
+            }, SETTINGS.MOVE_TIME, 32, function(){
+                _this.moving = false;
+                _this.stop();
+            });
+            break;
+        case "up":
+            _this.sprite.animations.play('up');
+            setIntervalX(function() {
+                _this.sprite.y -= 1;
+            }, SETTINGS.MOVE_TIME, 32, function(){
+                _this.moving = false;
+                _this.stop();
+            });
+            break;
+        default:
+            break;
         }
     }
 

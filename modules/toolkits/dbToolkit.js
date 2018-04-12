@@ -1,7 +1,7 @@
 
 const db = require('../db/mongoProvider'),
-      Collections = db.Models,
-      auth = require('./authToolkit');
+    Collections = db.Models,
+    auth = require('./authToolkit');
 //TODO: documentation
 
 
@@ -18,18 +18,18 @@ let createHash = (password) => {
             resolve({"hash": hash.hash, "salt": hash.salt});
         });
     });
-}
+};
 
 let initDatabase = () => {
     return new Promise(async (resolve, reject) => {
         console.log("Initializing Database");
         let user = {
-                name : "admin"
+            name : "admin"
         };
         
         let credentials = await createHash("admin");
         Collections.user.findOneAndUpdate({name: user.name}, {name: user.name, password: credentials.hash, salt: credentials.salt, roles: ["admin","user"]}, {new : true, upsert : true})
-        .then(() => { console.log("Done");}).catch(e => { reject(e); });
+            .then(() => { console.log("Done");}).catch(e => { reject(e); });
     });
 };
 

@@ -109,7 +109,7 @@ const createHashKey = (password) => {
             resolve({"hash": hashed.hash, "salt": hashed.salt});
         });
     });
-}
+};
 
 module.exports.init = function(app) {
     passport.use(new JwtStrategy({
@@ -212,11 +212,11 @@ module.exports.login = [
     function(req, res, next) {
         // Issue a remember me cookie if the option was checked
         // if (isRememberMeChecked(req)) {
-            let token = createToken(req.user, createDeviceFingerprint(req));
+        let token = createToken(req.user, createDeviceFingerprint(req));
             
-            res.cookie(cookieName, token, { path: properties.basePath + '/', httpOnly: true, maxAge: maxAge });
+        res.cookie(cookieName, token, { path: properties.basePath + '/', httpOnly: true, maxAge: maxAge });
             
-            return next();
+        return next();
         // } else {
         //     return next();
         // }

@@ -5,9 +5,6 @@ window.onload = async function () {
     await $.getScript("/js/phaser.js");
     await $.getScript("/js/Objects.js");
     
-    
-
-    
     var map, layer, cursors, sprite;
     // config
     let config = {
@@ -48,10 +45,11 @@ window.onload = async function () {
     function preload() {
         console.log('call::preload()');
         // preload tilemap
-        game.load.tilemap('tilemap', 'tilemap/testMap.json', null, Phaser.Tilemap.TILED_JSON);
+        // game.load.tilemap('tilemap', 'tilemap/testMap.json', null, Phaser.Tilemap.TILED_JSON);
 
         // preload tile asset for tilemap
         game.load.image('tiles', 'tilemap/mountainlandscape.png');
+        // game.load.image('background', 'tilemap/mountainlandscape.png');
         // creatures[0].load();
         for(let i = 0; i < creatures.length; i++) {
             creatures[i].load();
@@ -62,13 +60,13 @@ window.onload = async function () {
     function create() {
         console.log('call::create()');
         // load up tilemap
-        map = game.add.tilemap('tilemap');
+        // map = game.add.tilemap('tilemap');
 
         // link loaded tileset image to map
-        map.addTilesetImage('tileset', 'tiles');
+        // map.addTilesetImage('tileset', 'tiles');
 
         // create laye for said tileset and map now!
-        layer = map.createLayer('layer1');
+        // layer = map.createLayer('layer1');
         // set background color
         game.stage.backgroundColor = '#787878';
         // set the size of this world
@@ -79,7 +77,7 @@ window.onload = async function () {
         // for(let i = 0; i < creatures.length; i++) {
         //     creatures[i].create();
         // }
-        cursors = game.input.keyboard.createCursorKeys();
+        game.cursors = game.input.keyboard.createCursorKeys();
     }
 
     function render() {
@@ -146,32 +144,31 @@ window.onload = async function () {
     function resize() {
         // console.log('call::resize()');
     }
-    var lastX, lastY;
-    function touchHandler(e) {
-        if (e.touches) {
-            e.preventDefault();
+    // var lastX, lastY;
+    // function touchHandler(e) {
+    //     if (e.touches) {
+    //         e.preventDefault();
+    //         var currentY = e.touches[0].clientY;
+    //         var currentX = e.touches[0].clientX;
+    //         if(!player.moving){
+    //             if (currentY > lastY) {
+    //                 player.move("down");
+    //                 // alert('down');
+    //             } else if (currentY < lastY) {
+    //                 // alert('up');
+    //                 player.move("up");
+    //             }
 
-            var currentY = e.touches[0].clientY;
-            var currentX = e.touches[0].clientX;
-            if(!player.moving){
-                if (currentY > lastY) {
-                    player.move("down");
-                    // alert('down');
-                } else if (currentY < lastY) {
-                    // alert('up');
-                    player.move("up");
-                }
-
-                if (currentX > lastX) {
-                    player.move("right");
-                } else if (currentX < lastX) {
-                    player.move("left");
-                }
-                lastY = currentY;
-                lastX = currentX;
-            }
-        }
-    }
-    // document.addEventListener("touchstart", touchHandler);
-    document.addEventListener("touchmove", touchHandler);
+    //             if (currentX > lastX) {
+    //                 player.move("right");
+    //             } else if (currentX < lastX) {
+    //                 player.move("left");
+    //             }
+    //             lastY = currentY;
+    //             lastX = currentX;
+    //         }
+    //     }
+    // }
+    // // document.addEventListener("touchstart", touchHandler);
+    // document.addEventListener("touchmove", touchHandler);
 };

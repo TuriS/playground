@@ -31,7 +31,9 @@ module.exports = function (app) {
                 requiredControllers.forEach((controller) => {
                     accum += helpers.asset('script', '../controllers/' + controller + '.js');
                 });
-            } catch (e) {}
+            } catch (e) {
+                console.error(e);
+            }
 
             return accum;
         }
