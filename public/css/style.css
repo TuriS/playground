@@ -10,4 +10,5 @@ body{
 
 body > canvas {
     margin: auto;
+    border: solid black 1px;
 }
