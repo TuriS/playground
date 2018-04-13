@@ -48,37 +48,23 @@ window.onload = async function () {
             creatures[i].load();
         }
     }
-
+    var cursor;
     // create() happens here
     function create() {
         console.log('call::create()');
         // load up tilemap
         // map = game.add.tilemap('tilemap');
         game.add.tileSprite(0,0,36*32,28*32, "background");
-        
-        for(let i = 0; i < 36; i++) {
-            for(let j = 0; j < 28; j++) {
-                let sprite = game.add.sprite(i*32,j*32);
-                sprite.inputEnabled = true;
-                let graphics = game.add.graphics(0,0);
-                graphics.lineStyle(1, 0x000000, 1);
-                graphics.beginFill(0x0000ff, 0);
-                graphics.drawRect(0,0,32,32);
-                graphics.fillAlpha = 0;
-                sprite.addChild(graphics);
-                sprite.events.onInputOver.add(function(sprite, pointer) {
-                    console.log(sprite);
-                    sprite.children[0].graphicsData[0].fillAlpha = 0.5;
-                    console.log(pointer);
-                }, this);
-                sprite.events.onInputOut.add(function(sprite, pointer) {
-                    console.log(sprite);
-                    sprite.children[0].graphicsData[0].fillAlpha = 0;
-                }, this);
-            }
-        }
-        
-        
+        game.cursor = game.add.sprite(0,0);
+        let graphics = game.add.graphics(0,0);
+        graphics.lineStyle(1, 0x000000, 1);
+        graphics.beginFill(0x0000ff, 0.5);
+        graphics.drawRect(0,0,32,32);
+        graphics.fillAlpha = 0;
+        game.cursor.addChild(graphics);
+        console.log(game.cursor);
+        window.cursor = game.cursor;
+        window.thpointer = game.input;
         // draw a shape
         // link loaded tileset image to map
         // map.addTilesetImage('tileset', 'tiles');
@@ -155,8 +141,17 @@ window.onload = async function () {
             creatures[1].create();
             console.log("action");
         }
-        
+        drawRectangle();
 
+    }
+
+    function drawRectangle() {
+        return (async () => {
+            let x = 32 * Math.floor((game.input.activePointer.position.x + game.camera.x) / 32),
+                y = 32 * Math.floor((game.input.activePointer.position.y + game.camera.y) / 32);
+            game.cursor.x = x;
+            game.cursor.y = y;
+        })();
     }
 
     function resize() {
