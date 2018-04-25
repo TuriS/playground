@@ -1,7 +1,7 @@
 {
     "name":   "player",
-    "x":      0,
-    "y":      0,
+    "x":      48,
+    "y":      40,
     "width":  32,
     "height": 32,
     "image":  "sprites/character_1.png",

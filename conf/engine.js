@@ -1,5 +1,6 @@
-const exphbs = require('express-handlebars');
-const path = require('path');
+const exphbs = require('express-handlebars'),
+    path = require('path'),
+    fs = require('fs');
 
 module.exports = function (app) {
     const helpers = {
@@ -35,6 +36,24 @@ module.exports = function (app) {
                 console.error(e);
             }
 
+            return accum;
+        },
+        'addRequires': function(a) {
+            let accum = "";
+            let rootPath = this.settings.views;
+            let fileName = a.data._parent.exphbs.view + ".require.json";
+            try {
+                
+                let filePath = path.join(rootPath,fileName);
+                if(fs.existsSync(filePath)) {
+                    let content = JSON.parse(fs.readFileSync(filePath, "utf8"));
+                    content.forEach(file => {
+                        accum += helpers.asset('script','tools/' + file + ".js");
+                    });
+                }
+            } catch (e) {
+                console.error(e);
+            }
             return accum;
         }
     };
