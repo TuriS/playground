@@ -59,7 +59,7 @@ window.onload = async function () {
         ];
     
         game.player = game.creatures[0];
-        game.load.image('background', 'tilemap/background_32.png');
+        game.load.image('background', 'tilemap/background.png');
         for(let i = 0; i < game.creatures.length; i++) {
             game.creatures[i].load();
         }
@@ -74,7 +74,6 @@ window.onload = async function () {
         default:
             break;
         }
-        console.log(s);
     };
     // create() happens here
     function create() {
@@ -184,31 +183,4 @@ window.onload = async function () {
             player.stop();
         }
     }
-    // var lastX, lastY;
-    // function touchHandler(e) {
-    //     if (e.touches) {
-    //         e.preventDefault();
-    //         var currentY = e.touches[0].clientY;
-    //         var currentX = e.touches[0].clientX;
-    //         if(!player.moving){
-    //             if (currentY > lastY) {
-    //                 player.move("down");
-    //                 // alert('down');
-    //             } else if (currentY < lastY) {
-    //                 // alert('up');
-    //                 player.move("up");
-    //             }
-
-    //             if (currentX > lastX) {
-    //                 player.move("right");
-    //             } else if (currentX < lastX) {
-    //                 player.move("left");
-    //             }
-    //             lastY = currentY;
-    //             lastX = currentX;
-    //         }
-    //     }
-    // }
-    // // document.addEventListener("touchstart", touchHandler);
-    // document.addEventListener("touchmove", touchHandler);
 };

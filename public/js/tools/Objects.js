@@ -13,6 +13,14 @@ function setIntervalX(callback, delay, repetitions, final) {
         }
     }, delay);
 }
+
+function setTimeoutAsync(time) {
+    return new Promise((resolve, reject) => {
+        window.setTimeout(() => {
+            resolve();
+        },time);
+    });
+}
 function calculateMenuCoordinates(menuPoints, centerPoint) {
     let deg = (2 * Math.PI) / menuPoints.length;
     let radius = 40;
@@ -214,44 +222,79 @@ class Player extends GameObject {
             switch (direction) {
             case "down":
                 _this.sprite.animations.play('down');
-                setIntervalX(function() {
+                for(let i = 0; i < 32; i++) {
                     _this.sprite.y += 1;
-                }, SETTINGS.MOVE_TIME, 32, function(){
-                    _this.moving = false;
-                    _this.stop();
-                    return;
-                    
-                });
+                    await setTimeoutAsync(10);
+                }
+                _this.moving = false;
+                _this.stop();
                 break;
             case "left":
                 _this.sprite.animations.play('left');
-                setIntervalX(function() {
+                for(let i = 0; i < 32; i++) {
                     _this.sprite.x -= 1;
-                }, SETTINGS.MOVE_TIME, 32, function(){
-                    _this.moving = false;
-                    _this.stop();
-                    return;
-                });
+                    await setTimeoutAsync(10);
+                }
+                _this.moving = false;
+                _this.stop();
                 break;
             case "right":
                 _this.sprite.animations.play('right');
-                setIntervalX(function() {
+                for(let i = 0; i < 32; i++) {
                     _this.sprite.x += 1;
-                }, SETTINGS.MOVE_TIME, 32, function(){
-                    _this.moving = false;
-                    _this.stop();
-                    return;
-                });
+                    await setTimeoutAsync(10);
+                }
+                _this.moving = false;
+                _this.stop();
                 break;
             case "up":
                 _this.sprite.animations.play('up');
-                setIntervalX(function() {
+                for(let i = 0; i < 32; i++) {
                     _this.sprite.y -= 1;
-                }, SETTINGS.MOVE_TIME, 32, function(){
-                    _this.moving = false;
-                    _this.stop();
-                    return;
-                });
+                    await setTimeoutAsync(10);
+                }
+                _this.moving = false;
+                _this.stop();
+                break;
+            case "up left":
+                _this.sprite.animations.play('up');
+                for(let i = 0; i < 32; i++) {
+                    _this.sprite.y -= 1;
+                    _this.sprite.x -= 1;
+                    await setTimeoutAsync(10);
+                }
+                _this.moving = false;
+                _this.stop();
+                break;
+            case "up right":
+                _this.sprite.animations.play('up');
+                for(let i = 0; i < 32; i++) {
+                    _this.sprite.y -= 1;
+                    _this.sprite.x += 1;
+                    await setTimeoutAsync(10);
+                }
+                _this.moving = false;
+                _this.stop();
+                break;
+            case "down left":
+                _this.sprite.animations.play('down');
+                for(let i = 0; i < 32; i++) {
+                    _this.sprite.y += 1;
+                    _this.sprite.x -= 1;
+                    await setTimeoutAsync(10);
+                }
+                _this.moving = false;
+                _this.stop();
+                break;
+            case "down right":
+                _this.sprite.animations.play('down');
+                for(let i = 0; i < 32; i++) {
+                    _this.sprite.y += 1;
+                    _this.sprite.x += 1;
+                    await setTimeoutAsync(10);
+                }
+                _this.moving = false;
+                _this.stop();
                 break;
             default:
                 return;
@@ -265,19 +308,38 @@ class Player extends GameObject {
         let xStepsAbs = Math.abs(xSteps);
         let yStepsAbs = Math.abs(ySteps);
         (async () => {
-            for(let i = 0; i < xStepsAbs; i++) {
-                if(xSteps > 0) {
-                    await this.move("right");
+            for(let i = 0, j = 0; i < xStepsAbs || j < yStepsAbs; i++, j++) {
+                if(i < xStepsAbs && j < yStepsAbs) {
+                    if(xSteps > 0) {
+                        if(ySteps < 0) {
+                            await this.move("up right");
+                        } else {
+                            await this.move("down right");
+                        }
+                    } else {
+                        if(ySteps < 0) {
+                            await this.move("up left");
+                        } else {
+                            await this.move("down left");
+                        }
+                    }
                 } else {
-                    await this.move("left");
+                    if(i < xStepsAbs){
+                        if(xSteps > 0) {
+                            await this.move("right");
+                        } else {
+                            await this.move("left");
+                        }
+                    }
+                    if(j < yStepsAbs){
+                        if(ySteps < 0) {
+                            await this.move("up");
+                        } else {
+                            await this.move("down");
+                        }
+                    }
                 }
-            }
-            for(let i = 0; i < yStepsAbs; i++) {
-                if(ySteps < 0) {
-                    await this.move("up");
-                } else {
-                    await this.move("down");
-                }
+                
             }
         })();
     }
